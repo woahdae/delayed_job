@@ -18,6 +18,7 @@ module Delayed
       else "Unknown##{method}"
       end      
     end    
+    alias :to_s :display_name
 
     def perform
       load(object).send(method, *args.map{|a| load(a)})
@@ -25,6 +26,7 @@ module Delayed
       # We cannot do anything about objects which were deleted in the meantime
       true
     end
+
 
     private
 

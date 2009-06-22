@@ -214,7 +214,11 @@ module Delayed
 
     # Moved into its own method so that new_relic can trace it.
     def invoke_job
+      base_name = $0
+      $0 = "#{base_name}: #{self.payload_object.to_s}"
       payload_object.perform
+    ensure
+      $0 = base_name
     end
 
   private
